@@ -244,7 +244,9 @@ class ScreenInspector:
 
 if __name__ == "__main__":
     # Connect to the rooted Android 14 device at the provided IP address.
-    d = u2.connect("172.16.4.100")
+    # device = "172.16.4.100"
+    device = "emulator-5554"
+    d = u2.connect(device)
     
     # Instantiate the classes.
     actions = AndroidActions(d)
