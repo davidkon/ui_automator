@@ -24,7 +24,7 @@ class ScriptRunnerApp:
         self.tabview.pack(fill="both", expand=True, side="top")
 
         # Create console (lower 1/3)
-        self.console = scrolledtext.ScrolledText(self.main_frame, height=10, wrap=tk.WORD, state='disabled')
+        self.console = scrolledtext.ScrolledText(self.main_frame, height=20, wrap=tk.WORD, state='disabled')
         self.console.pack(fill="both", expand=False, padx=5, pady=5, side="bottom")
 
         # Load scripts and populate tabs
@@ -52,16 +52,22 @@ class ScriptRunnerApp:
             scripts = [f for f in os.listdir(folder_path) if f.endswith('.py')]
             scripts.sort(key=lambda x: int(x.split('_')[0]) if '_' in x else 999)
 
-            # Create buttons for each script
-            for script in scripts:
+            # Create buttons for each script, up to 3 per row
+            row_frame = None
+            for i, script in enumerate(scripts):
+                # Create a new row frame for every 3 buttons
+                if i % 3 == 0:
+                    row_frame = ctk.CTkFrame(tab_frame, fg_color="transparent")
+                    row_frame.pack(pady=5, fill="x")
+                
                 button_name = ' '.join(script.split('_')[1:]).replace('.py', '').title()
                 script_path = os.path.join(folder_path, script)
                 button = ctk.CTkButton(
-                    master=tab_frame,
+                    master=row_frame,
                     text=button_name,
                     command=lambda path=script_path: self.run_script(path)
                 )
-                button.pack(pady=5, padx=10, fill="x")
+                button.pack(pady=5, padx=10, side="left", expand=True, fill="x")
 
     def run_script(self, script_path):
         """Run a script in a separate thread and display output in console."""
