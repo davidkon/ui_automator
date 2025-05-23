@@ -9,7 +9,7 @@ class ScriptRunnerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Script Runner")
-        self.root.geometry("800x600")
+        self.root.geometry("500x400")
 
         # Set CustomTkinter appearance
         ctk.set_appearance_mode("System")
@@ -24,7 +24,7 @@ class ScriptRunnerApp:
         self.tabview.pack(fill="both", expand=True, side="top")
 
         # Create console (lower 1/3)
-        self.console = scrolledtext.ScrolledText(self.main_frame, height=20, wrap=tk.WORD, state='disabled')
+        self.console = scrolledtext.ScrolledText(self.main_frame, height=200, wrap=tk.WORD, state='disabled')
         self.console.pack(fill="both", expand=False, padx=5, pady=5, side="bottom")
 
         # Load scripts and populate tabs
